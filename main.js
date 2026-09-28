@@ -1,15 +1,8 @@
 /* Baydaar Experiences · site script
    Everything the client edits lives in CONFIG. The rest is behaviour. */
 
+// Contact settings (WhatsApp, email, licence) live in config.js.
 const CONFIG = {
-  // WhatsApp number in international format, digits only (e.g. '923001234567').
-  // Leave empty and the site falls back to email.
-  WHATSAPP: '',
-  EMAIL: 'baydaartravels@gmail.com',
-  // DTS / tourism licence number. Shown in the trust line only when filled.
-  LICENCE: '',
-  APP_URL: 'https://baydaarexperiences.com/app/',
-
   // SAMPLE DEPARTURES — replace with the live schedule from the Baydaar app.
   // Departures in the past are hidden automatically.
   TRIPS: [
@@ -40,6 +33,9 @@ const CONFIG = {
     { n:'Baku', a:'−28 m · Azerbaijan', img:'img/baku.jpg', k:'Beyond', s:'The Flame Towers and the Caspian. The only stop on our map below sea level.' },
   ],
 };
+
+const B = window.BAYDAAR || {};
+Object.assign(CONFIG, { WHATSAPP: B.WHATSAPP || '', EMAIL: B.EMAIL || 'baydaartravels@gmail.com', LICENCE: B.LICENCE || '', APP_URL: B.APP_URL || 'https://baydaarexperiences.com/app/' });
 
 /* ---------------- helpers ---------------- */
 const $ = (s, r = document) => r.querySelector(s);
@@ -98,6 +94,8 @@ if (!reduce && typeof window.Lenis !== 'undefined') {
   }));
 }
 if (hasGsap) gsap.registerPlugin(ScrollTrigger);
+new MutationObserver(() => document.documentElement.classList.contains('menu-open') ? lenis?.stop() : (document.documentElement.classList.contains('modal-open') || lenis?.start()))
+  .observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
 /* ---------------- nav + altimeter ---------------- */
 const nav = $('[data-nav]');
@@ -370,25 +368,125 @@ onScroll();
   $('[data-wa-plus]').addEventListener('click', () => { state.pax++; update(); });
   form.addEventListener('submit', e => {
     e.preventDefault();
-    const { trip, dep, pax } = state, total = trip.p * pax;
-    $('[data-wa-summary]').textContent = `${trip.t}, leaving ${DOW[dep.date.getDay()]} ${fmt(dep.date)}, for ${pax} ${pax > 1 ? 'people' : 'person'}. Trip total ${pkr(total)}, advance ${pkr(total / 2)}. Sign in to send the request and a planner will call you to confirm.`;
-    $('[data-wa-open]').href = `${CONFIG.APP_URL}experience/${trip.id}`;
-    const w = $('[data-wa-whats]');
-    if (CONFIG.WHATSAPP) {
-      const msg = `Assalam o Alaikum Baydaar! I'd like to reserve ${pax} seat(s) on ${trip.t}, departing ${fmt(dep.date)}. Total ${pkr(total)}.`;
-      w.href = `https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(msg)}`; w.hidden = false;
-    }
-    form.hidden = true; $('[data-wa-done]').hidden = false;
-    $('.wa-done h3').textContent = 'Your seats are priced.';
+    window.dispatchEvent(new CustomEvent('baydaar:book', { detail: { trip: state.trip, dep: state.dep, pax: state.pax } }));
   });
-  $('[data-wa-reset]').addEventListener('click', () => { form.hidden = false; $('[data-wa-done]').hidden = true; });
-  window.addEventListener('baydaar:pick', e => { setTrip(e.detail.id, e.detail.date); form.hidden = false; $('[data-wa-done]').hidden = true; });
+  window.addEventListener('baydaar:pick', e => setTrip(e.detail.id, e.detail.date));
+  window.addEventListener('baydaar:pax', e => { if (e.detail.trip === state.trip) { state.pax = e.detail.pax; update(); } });
   setTrip(state.trip.id);
 
   if (hasGsap && !reduce) {
     gsap.from('[data-webapp]', { y: 80, rotate: 2, opacity: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '.book', start: 'top 70%' } });
     gsap.from('.steps li', { x: -20, opacity: 0, stagger: .1, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: '.steps', start: 'top 80%' } });
   }
+})();
+
+
+/* ---------------- booking form (modal) ---------------- */
+(function booking() {
+  const root = $('[data-bk]'); if (!root) return;
+  const form = $('[data-bk-form]', root), steps = $$('.bk-step', root), prog = $$('[data-bk-prog] li', root);
+  const next = $('[data-bk-next]', root), back = $('[data-bk-back]', root), err = $('[data-bk-err]', root);
+  let S = null, step = 0, lastFocus = null;
+  const choice = g => $(`[data-group="${g}"] [aria-pressed="true"]`, root)?.dataset.v || '';
+
+  function paint() {
+    const { trip, dep, pax } = S, total = trip.p * pax;
+    $('[data-bk-img]', root).src = trip.img;
+    $('[data-bk-trip]', root).textContent = trip.t;
+    $('[data-bk-when]', root).textContent = `${DOW[dep.date.getDay()]} ${fmt(dep.date)} · ${trip.d} days · ${trip.w}`;
+    $('[data-bk-pax]', root).textContent = pax;
+    $('[data-bk-pax-out]', root).textContent = pax;
+    $('[data-bk-seats]', root).textContent = `${dep.seats} seats left`;
+    $('[data-bk-total]', root).textContent = pkr(total);
+    $('[data-bk-adv]', root).textContent = pkr(total / 2);
+  }
+  function go(n) {
+    step = n;
+    steps.forEach((s, i) => s.classList.toggle('on', i === n));
+    prog.forEach((p, i) => { p.classList.toggle('on', i === n); p.classList.toggle('done', i < n); });
+    back.hidden = n === 0;
+    next.textContent = n === 2 ? 'Send booking request' : 'Continue';
+    err.hidden = true;
+    if (n === 2) review();
+    const first = $('input,select,textarea,button.pill', steps[n]); if (first && matchMedia('(pointer:fine)').matches) first.focus({ preventScroll: true });
+    $('.bk-main', root).scrollTop = 0;
+  }
+  function review() {
+    const { trip, dep, pax } = S, total = trip.p * pax;
+    const rows = [
+      ['Trip', `${trip.t}`], ['Departs', `${DOW[dep.date.getDay()]} ${fmt(dep.date)} ${dep.date.getFullYear()}, from Islamabad`],
+      ['Lead traveller', $('#bk-name').value.trim()], ['WhatsApp', $('#bk-phone').value.trim()],
+      ['Travellers', `${pax} from ${$('#bk-city').value}`], ['Rooms', choice('room')], ['Occasion', choice('occasion')], ['Food', choice('food')],
+      ['Total', pkr(total)], ['Advance on confirmation', pkr(total / 2)],
+    ];
+    const email = $('#bk-email').value.trim(); if (email) rows.splice(4, 0, ['Email', email]);
+    const notes = $('#bk-notes').value.trim(); if (notes) rows.push(['Notes', notes]);
+    $('[data-bk-review]', root).innerHTML = rows.map(([k, v]) => `<div><dt>${k}</dt><dd></dd></div>`).join('');
+    $$('[data-bk-review] dd', root).forEach((dd, i) => dd.textContent = rows[i][1]);
+    S.rows = rows;
+  }
+  function validate() {
+    if (step === 0) {
+      const name = $('#bk-name'), phone = $('#bk-phone'), email = $('#bk-email');
+      if (name.value.trim().length < 3) return fail(name, 'Add the lead traveller\'s full name.');
+      if (!/^[0-9+ ]{10,15}$/.test(phone.value.trim())) return fail(phone, 'Add a WhatsApp number, like 0300 1234567.');
+      if (email.value && !email.checkValidity()) return fail(email, 'That email doesn\'t look right. Fix it or leave it empty.');
+    }
+    if (step === 2 && !$('#bk-agree').checked) return fail($('#bk-agree'), 'Tick the box to confirm you\'ve read the refund policy.');
+    return true;
+  }
+  function fail(el, msg) { err.textContent = msg; err.hidden = false; el.focus(); el.classList.add('shake'); setTimeout(() => el.classList.remove('shake'), 500); return false; }
+
+  function open(detail) {
+    S = { ...detail }; lastFocus = document.activeElement;
+    paint(); go(0);
+    form.hidden = false; $('[data-bk-done]', root).hidden = true;
+    root.hidden = false; requestAnimationFrame(() => root.classList.add('in'));
+    document.documentElement.classList.add('modal-open'); lenis?.stop();
+  }
+  function close() {
+    root.classList.remove('in');
+    document.documentElement.classList.remove('modal-open'); lenis?.start();
+    setTimeout(() => { root.hidden = true; lastFocus?.focus?.({ preventScroll: true }); }, 350);
+  }
+  function done() {
+    const ref = 'BX-' + (Date.now() % 1e6).toString(36).toUpperCase().padStart(4, '0');
+    const lines = S.rows.map(([k, v]) => `${k}: ${v}`).join('\n');
+    const msg = `Assalam o Alaikum Baydaar! Booking request ${ref}\n\n${lines}\n\nI've read the refund policy.`;
+    const send = $('[data-bk-send]', root);
+    if (CONFIG.WHATSAPP) { send.href = `https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(msg)}`; send.textContent = 'Send request on WhatsApp'; }
+    else { send.href = `mailto:${CONFIG.EMAIL}?subject=${encodeURIComponent('Booking request ' + ref + ': ' + S.trip.t)}&body=${encodeURIComponent(msg)}`; send.textContent = 'Send request by email'; }
+    $('[data-bk-ref]', root).textContent = ref;
+    $('[data-bk-app]', root).href = `${CONFIG.APP_URL}experience/${S.trip.id}`;
+    $('[data-bk-done-msg]', root).textContent = `${S.pax} ${S.pax > 1 ? 'seats' : 'seat'} on ${S.trip.t}, ${fmt(S.dep.date)}. Send the request below and a planner will call ${$('#bk-phone').value.trim()} to confirm.`;
+    form.hidden = true; $('[data-bk-done]', root).hidden = false;
+    $('.bk-main', root).scrollTop = 0;
+  }
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!validate()) return;
+    step < 2 ? go(step + 1) : done();
+  });
+  back.addEventListener('click', () => go(Math.max(0, step - 1)));
+  $$('[data-bk-close]', root).forEach(b => b.addEventListener('click', close));
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !root.hidden) close(); });
+  $('[data-bk-minus]', root).addEventListener('click', () => { S.pax = Math.max(1, S.pax - 1); paint(); sync(); });
+  $('[data-bk-plus]', root).addEventListener('click', () => { S.pax = Math.min(S.dep.seats, S.pax + 1); paint(); sync(); });
+  const sync = () => window.dispatchEvent(new CustomEvent('baydaar:pax', { detail: { trip: S.trip, pax: S.pax } }));
+  root.addEventListener('click', e => {
+    const p = e.target.closest('.pill'); if (!p) return;
+    $$('.pill', p.parentElement).forEach(x => x.setAttribute('aria-pressed', String(x === p)));
+  });
+  // keep Tab inside the dialog
+  root.addEventListener('keydown', e => {
+    if (e.key !== 'Tab') return;
+    const f = $$('button:not([hidden]),a[href]:not([hidden]),input,select,textarea', $('.bk-dialog', root)).filter(x => x.offsetParent);
+    if (!f.length) return;
+    if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+    else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+  });
+  window.addEventListener('baydaar:book', e => open(e.detail));
 })();
 
 /* ---------------- app features ---------------- */

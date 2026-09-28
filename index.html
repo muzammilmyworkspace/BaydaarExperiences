@@ -28,10 +28,28 @@
   <nav aria-label="Main">
     <a href="#departures">Trips</a>
     <a href="#app">The app</a>
-    <a href="#shop">Shop</a>
+    <a href="shop.html">Shop</a>
   </nav>
-  <a class="btn btn-sm btn-light" href="#call">Book a call</a>
+  <div class="nav-actions">
+    <a class="btn btn-sm btn-light nav-cta" href="#call">Book a call</a>
+    <button class="menu-btn" type="button" data-menu-btn aria-expanded="false" aria-controls="menu" aria-label="Menu"><span></span><span></span></button>
+  </div>
 </header>
+
+<div class="menu" id="menu" data-menu>
+  <nav aria-label="Mobile">
+    <a href="#departures"><small>Trips</small>Leaving soon</a>
+    <a href="#book"><small>Book</small>Reserve online</a>
+    <a href="#app"><small>App</small>The Baydaar app</a>
+    <a href="shop.html"><small>Shop</small>From the valleys</a>
+    <a href="#call"><small>Talk</small>Book a 15-min call</a>
+  </nav>
+  <div class="menu-foot">
+    <a href="https://www.instagram.com/baydaarexperiences/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.facebook.com/baydaarexperiences/" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://www.tiktok.com/@baydaarexperiences" target="_blank" rel="noopener">TikTok</a>
+  </div>
+</div>
 
 <main id="top">
 
@@ -147,19 +165,9 @@
             <div class="tiers" data-wa-tiers></div>
           </div>
 
-          <button class="btn btn-primary wide" type="submit">Request booking</button>
+          <button class="btn btn-primary wide" type="submit">Reserve these seats</button>
         </form>
 
-        <div class="wa-done" data-wa-done hidden>
-          <div class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
-          <h3>Seats requested.</h3>
-          <p data-wa-summary></p>
-          <div class="cta-col">
-            <a class="btn btn-primary wide" data-wa-open target="_blank" rel="noopener" href="https://baydaarexperiences.com/app/">Finish in the Baydaar app</a>
-            <a class="btn btn-outline wide" data-wa-whats target="_blank" rel="noopener" href="#" hidden>Send it on WhatsApp</a>
-            <button class="linkish" type="button" data-wa-reset>Price another trip</button>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -235,7 +243,7 @@
       <p class="lede on-dark">Shilajit, honey and cold-pressed oils bought directly from farmers in the northern valleys and lab tested for purity. You pay in cash when it reaches your door.</p>
     </div>
     <div class="products">
-      <a class="prod p-shilajit" href="https://baydaarexperiences.com/app/product/gilgit-shilajit" target="_blank" rel="noopener" data-tilt>
+      <a class="prod p-shilajit" href="shop.html#gilgit-shilajit" data-tilt>
         <div class="prod-media">
           <img src="img/shilajit.jpg" alt="Pure Gilgit Shilajit" loading="lazy">
           <svg class="ring" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="rp1" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text><textPath href="#rp1">PURE GILGIT SHILAJIT · ROCK RESIN · GILGIT-BALTISTAN · </textPath></text></svg>
@@ -243,7 +251,7 @@
         </div>
         <div class="prod-body"><h3>Pure Gilgit Shilajit</h3><p>Resin from the high rock faces of Gilgit-Baltistan.</p><p class="from">20g · 50g · 100g <b>from PKR 3,500</b></p></div>
       </a>
-      <a class="prod p-honey" href="https://baydaarexperiences.com/app/product/wild-sidr-honey" target="_blank" rel="noopener" data-tilt>
+      <a class="prod p-honey" href="shop.html#wild-sidr-honey" data-tilt>
         <div class="prod-media">
           <img src="img/honey.jpg" alt="Wild Sidr honey" loading="lazy">
           <svg class="drip" viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H300 V18 C280,18 276,40 270,62 C266,76 256,76 252,62 C246,40 240,22 222,22 C200,22 196,34 190,48 C186,58 178,58 174,48 C168,32 160,20 140,20 C118,20 112,50 106,86 C102,104 90,104 86,86 C80,50 72,20 50,20 C30,20 26,32 20,42 C16,50 8,50 4,42 C2,36 0,30 0,26 Z"/></svg>
@@ -251,7 +259,7 @@
         </div>
         <div class="prod-body"><h3>Wild Sidr Honey</h3><p>Raw and unprocessed, from wild Sidr blossoms.</p><p class="from">250g · 500g · 1kg <b>from PKR 2,500</b></p></div>
       </a>
-      <a class="prod p-oil" href="https://baydaarexperiences.com/app/product/hunza-almond-oil" target="_blank" rel="noopener" data-tilt>
+      <a class="prod p-oil" href="shop.html#hunza-almond-oil" data-tilt>
         <div class="prod-media">
           <img src="img/almond.jpg" alt="Hunza almond oil" loading="lazy">
           <span class="sheen" aria-hidden="true"></span>
@@ -259,11 +267,18 @@
         <div class="prod-body"><h3>Hunza Almond Oil</h3><p>Cold-pressed from Hunza almonds.</p><p class="from">100ml · 250ml · 500ml <b>from PKR 900</b></p></div>
       </a>
     </div>
-    <ul class="promises">
-      <li><b>Cash on delivery</b> anywhere in Pakistan</li>
-      <li><b>Free delivery</b> over PKR 5,000</li>
-      <li><b>7-day returns</b> if it isn't right</li>
-    </ul>
+    <div class="shop-cta">
+      <ul class="promises">
+        <li><b>Cash on delivery</b> anywhere in Pakistan</li>
+        <li><b>Free delivery</b> over PKR 5,000</li>
+        <li><b>7-day returns</b> if it isn't right</li>
+      </ul>
+      <div class="cta-row">
+        <a class="btn btn-honey" href="shop.html">Shop all six products
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost" href="shop.html#gilgit-shilajit">Start with Shilajit</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -332,9 +347,119 @@
   </div>
 </footer>
 
+
+<!-- Floating contact -->
+<div class="fab">
+  <a class="fab-btn fab-ig" data-fab-ig href="https://www.instagram.com/baydaarexperiences/" target="_blank" rel="noopener" aria-label="Baydaar on Instagram">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg>
+    <span class="fab-tip">@baydaarexperiences</span>
+  </a>
+  <a class="fab-btn fab-wa" data-fab-wa href="#call" aria-label="Chat with Baydaar on WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.410 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.93-4.66-4.11-.14-.18-1.11-1.48-1.11-2.82 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .39-.06.61.46.23.54.77 1.87.84 2.01.07.14.11.3.02.48-.09.18-.14.3-.27.46-.14.16-.29.36-.41.48-.14.14-.28.29-.12.56.16.27.71 1.17 1.52 1.9 1.05.93 1.93 1.22 2.2 1.36.27.14.43.11.59-.07.16-.18.68-.79.86-1.07.18-.27.36-.23.61-.14.25.09 1.58.75 1.85.88.27.14.45.2.52.32.07.11.07.66-.17 1.34z"/></svg>
+    <span class="fab-tip">Chat with a planner</span>
+  </a>
+</div>
+
+<!-- Booking form -->
+<div class="bk" data-bk hidden>
+  <div class="bk-backdrop" data-bk-close></div>
+  <div class="bk-dialog" role="dialog" aria-modal="true" aria-labelledby="bk-title">
+    <aside class="bk-side">
+      <img data-bk-img src="img/eagle.jpg" alt="">
+      <div class="bk-side-inner">
+        <p class="eyebrow on-dark">Your trip</p>
+        <h3 data-bk-trip>Hunza Valley Adventure</h3>
+        <p class="bk-when" data-bk-when>Sat 10 Oct · 7 days</p>
+        <dl class="bk-figs">
+          <div><dt>Travellers</dt><dd data-bk-pax>2</dd></div>
+          <div><dt>Trip total</dt><dd data-bk-total>PKR 150,000</dd></div>
+          <div class="hl"><dt>Advance (50%)</dt><dd data-bk-adv>PKR 75,000</dd></div>
+        </dl>
+      </div>
+    </aside>
+    <div class="bk-main">
+      <button class="bk-x" type="button" data-bk-close aria-label="Close">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <ol class="bk-prog" data-bk-prog aria-label="Progress">
+        <li class="on"><i></i>Who's coming</li><li><i></i>Make it yours</li><li><i></i>Review</li>
+      </ol>
+
+      <form class="bk-form" data-bk-form novalidate>
+        <fieldset class="bk-step on" data-step="0">
+          <legend id="bk-title">Who's coming?</legend>
+          <p class="bk-sub">The lead traveller gets the confirmation call and the group chat invite.</p>
+          <div class="field"><label for="bk-name">Full name</label><input id="bk-name" name="name" autocomplete="name" required placeholder="As on your CNIC or passport"></div>
+          <div class="grid2">
+            <div class="field"><label for="bk-phone">WhatsApp number</label><input id="bk-phone" name="phone" type="tel" autocomplete="tel" required placeholder="03xx xxxxxxx" pattern="[0-9+ ]{10,15}"></div>
+            <div class="field"><label for="bk-email">Email <span>optional</span></label><input id="bk-email" name="email" type="email" autocomplete="email" placeholder="you@example.com"></div>
+          </div>
+          <div class="grid2">
+            <div class="field"><label for="bk-city">Travelling from</label>
+              <select id="bk-city" name="city"><option>Islamabad</option><option>Rawalpindi</option><option>Lahore</option><option>Karachi</option><option>Peshawar</option><option>Faisalabad</option><option>Multan</option><option>Outside Pakistan</option></select></div>
+            <div class="field"><span class="flabel">Travellers</span>
+              <div class="stepper big"><button type="button" data-bk-minus aria-label="One fewer traveller">−</button><output data-bk-pax-out>2</output><button type="button" data-bk-plus aria-label="One more traveller">+</button><span class="seats" data-bk-seats></span></div></div>
+          </div>
+        </fieldset>
+
+        <fieldset class="bk-step" data-step="1">
+          <legend>Make it yours</legend>
+          <p class="bk-sub">Tell us now and it's arranged before you leave.</p>
+          <span class="flabel">Rooms</span>
+          <div class="pills" data-group="room">
+            <button type="button" class="pill" aria-pressed="true" data-v="Shared with my group">Shared with my group</button>
+            <button type="button" class="pill" aria-pressed="false" data-v="Couple room">Couple room</button>
+            <button type="button" class="pill" aria-pressed="false" data-v="Private room">Private room</button>
+          </div>
+          <span class="flabel">What's the occasion?</span>
+          <div class="pills" data-group="occasion">
+            <button type="button" class="pill" aria-pressed="true" data-v="Just travelling">Just travelling</button>
+            <button type="button" class="pill" aria-pressed="false" data-v="Honeymoon">Honeymoon</button>
+            <button type="button" class="pill" aria-pressed="false" data-v="Birthday">Birthday</button>
+            <button type="button" class="pill" aria-pressed="false" data-v="Friends trip">Friends trip</button>
+            <button type="button" class="pill" aria-pressed="false" data-v="Family">Family</button>
+          </div>
+          <span class="flabel">Food</span>
+          <div class="pills" data-group="food">
+            <button type="button" class="pill" aria-pressed="true" data-v="No preference">No preference</button>
+            <button type="button" class="pill" aria-pressed="false" data-v="Vegetarian">Vegetarian</button>
+            <button type="button" class="pill" aria-pressed="false" data-v="Allergies (see notes)">Allergies</button>
+          </div>
+          <div class="field"><label for="bk-notes">Anything else? <span>optional</span></label><textarea id="bk-notes" name="notes" rows="3" placeholder="First time at altitude, travelling with a child, pickup from Rawalpindi…"></textarea></div>
+        </fieldset>
+
+        <fieldset class="bk-step" data-step="2">
+          <legend>Review and send</legend>
+          <div class="bk-review" data-bk-review></div>
+          <p class="bk-pay"><b>Nothing is charged now.</b> A planner calls to confirm your seats, then you pay the 50% advance by bank transfer or wallet.</p>
+          <label class="check"><input type="checkbox" id="bk-agree"> <span>I've read the refund policy: 50% of the advance back if I cancel 15 or more days out, 25% at 10 to 14 days, none under 10 days.</span></label>
+        </fieldset>
+
+        <p class="bk-err" data-bk-err role="alert" hidden></p>
+        <div class="bk-nav">
+          <button type="button" class="btn btn-outline" data-bk-back hidden>Back</button>
+          <button type="submit" class="btn btn-primary" data-bk-next>Continue</button>
+        </div>
+      </form>
+
+      <div class="bk-done" data-bk-done hidden>
+        <svg class="bk-summit" viewBox="0 -12 120 80" aria-hidden="true"><path class="mt" d="M5 65 L40 25 L55 40 L75 10 L115 65 Z"/><path class="flag" d="M75 10 L75 -8 L90 -3 L75 2"/></svg>
+        <p class="eyebrow">Request <span data-bk-ref>BX-0000</span></p>
+        <h3>Your seats are waiting.</h3>
+        <p class="bk-done-msg" data-bk-done-msg></p>
+        <div class="cta-col">
+          <a class="btn btn-primary wide" data-bk-send target="_blank" rel="noopener" href="#">Send request on WhatsApp</a>
+          <a class="btn btn-outline wide" data-bk-app target="_blank" rel="noopener" href="https://baydaarexperiences.com/app/">Or finish in the Baydaar app</a>
+        </div>
+        <button class="linkish" type="button" data-bk-close>Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="config.js"></script>
 <script src="main.js"></script>
 </body>
 </html>
