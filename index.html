@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Baydaar Experiences</title>
+<meta name="description" content="Small-group trips through Pakistan's north and beyond, run from Islamabad since 2017. Book online, plan on a call, or bring the valleys home.">
+<meta name="theme-color" content="#0B1A21">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Nastaliq+Urdu:wght@500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Altimeter: the page is a climb up the Karakoram Highway -->
+<aside class="alti" aria-hidden="true">
+  <div class="alti-track"><span class="alti-fill"></span></div>
+  <div class="alti-read">
+    <b data-alti-m>540</b><small>m</small>
+    <span data-alti-place>Islamabad</span>
+  </div>
+</aside>
+
+<header class="nav" data-nav>
+  <a class="brand" href="#top"><img src="img/icon.png" alt="" width="34" height="34"><span>Baydaar</span></a>
+  <nav aria-label="Main">
+    <a href="#departures">Trips</a>
+    <a href="#app">The app</a>
+    <a href="#shop">Shop</a>
+  </nav>
+  <a class="btn btn-sm btn-light" href="#call">Book a call</a>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO · 540 m ============ -->
+<section class="hero" data-alti="540" data-place="Islamabad">
+  <div class="hero-media" data-hero-media>
+    <img src="img/hero.jpg" alt="Snow peaks rising above a sea of cloud at dusk" fetchpriority="high">
+  </div>
+  <canvas class="leaves" data-leaves aria-hidden="true"></canvas>
+  <div class="hero-inner">
+    <p class="urdu" lang="ur" dir="rtl">بیدار</p>
+    <p class="eyebrow on-dark">Baydaar means <em>awake</em></p>
+    <h1 class="hero-title"><span>Wake up</span> <span>above the</span> <span class="accent">clouds.</span></h1>
+    <p class="lede">Small-group trips through Pakistan's north and a few places beyond, run from Islamabad since 2017. You bring the curiosity. We handle the road, the rooms and the 4 a.m. starts.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#departures">See who's leaving this month</a>
+      <a class="btn btn-ghost" href="#call">Talk to a trip planner</a>
+    </div>
+    <ul class="proof">
+      <li><b>2017</b><span>running trips from Islamabad</span></li>
+      <li><b>145K</b><span>follow the journeys on Instagram</span></li>
+      <li><b>98%</b><span>recommend us across 66 Facebook reviews</span></li>
+    </ul>
+  </div>
+  <a class="next-dep" href="#departures" data-next-dep>
+    <span class="pulse"></span>
+    <span>Next departure</span>
+    <b data-next-name>Hunza Valley</b>
+    <span data-next-meta>10 Oct · 4 seats left</span>
+  </a>
+</section>
+
+<!-- Moving horizon: the K2 skyline drifts behind the departure board -->
+<div class="horizon" aria-hidden="true"><div class="horizon-track"></div></div>
+
+<!-- ============ DEPARTURES · 1,265 m ============ -->
+<section id="departures" class="departures" data-alti="1265" data-place="Chilas">
+  <canvas class="contours" data-contours aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow on-dark">Departures · from Islamabad</p>
+      <h2>Leaving soon.</h2>
+      <p class="lede on-dark">Six trips on the board. Prices are per person, seats are real, and a 50% advance holds your place.</p>
+    </div>
+    <div class="board-tabs" role="group" aria-label="Filter departures">
+      <button type="button" data-f="all" aria-pressed="true">All</button>
+      <button type="button" data-f="domestic" aria-pressed="false">Pakistan</button>
+      <button type="button" data-f="international" aria-pressed="false">Beyond</button>
+    </div>
+    <div class="board" data-board role="list"></div>
+    <p class="fine on-dark">Tap any departure to price it in the booking app below.</p>
+  </div>
+</section>
+
+<!-- ============ PLACES · 2,438 m ============ -->
+<section id="places" class="places" data-alti="1500" data-place="Gilgit">
+  <div class="places-pin" data-places-pin>
+    <div class="places-row" data-places-row>
+    <div class="places-intro">
+      <p class="eyebrow">Where the road goes</p>
+      <h2>Nine places that <br>change people.</h2>
+      <p class="lede">Scroll sideways through the north, then over the border.</p>
+    </div>
+    <div class="places-track" data-places-track>
+      <!-- filled by main.js -->
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOKING WEB APP · 2,800 m ============ -->
+<section id="book" class="book" data-alti="2438" data-place="Karimabad">
+  <div class="wrap book-grid">
+    <div class="book-copy">
+      <p class="eyebrow">Book it right here</p>
+      <h2>Pick a date. See every rupee before you commit.</h2>
+      <p class="lede">This is the Baydaar web app. The same account works on your phone, so a trip you reserve tonight is waiting in the app tomorrow.</p>
+      <ol class="steps">
+        <li><b>Request your seats</b><span>Nothing is charged online.</span></li>
+        <li><b>We call you back</b><span>A planner confirms seats and answers what the itinerary didn't.</span></li>
+        <li><b>Pay the 50% advance</b><span>Arranged with you directly, by bank or wallet.</span></li>
+        <li><b>Meet your group</b><span>You're added to the trip chat. Say hello and sort out packing.</span></li>
+      </ol>
+    </div>
+
+    <div class="webapp" data-webapp>
+      <div class="wa-bar"><i></i><i></i><i></i><span>baydaarexperiences.com/app</span></div>
+      <div class="wa-body">
+        <div class="wa-hero"><img data-wa-img src="img/hunza.jpg" alt=""><div><small data-wa-where>Hunza, Gilgit-Baltistan</small><b data-wa-title>Hunza Valley Adventure</b></div></div>
+
+        <form class="wa-form" data-wa-form>
+          <label class="wa-label" for="wa-trip">Trip</label>
+          <select id="wa-trip" data-wa-trip></select>
+
+          <span class="wa-label">Departure</span>
+          <div class="chips" data-wa-dates role="radiogroup" aria-label="Departure date"></div>
+
+          <span class="wa-label">Travellers</span>
+          <div class="stepper">
+            <button type="button" data-wa-minus aria-label="One fewer traveller">−</button>
+            <output data-wa-pax id="wa-pax">2</output>
+            <button type="button" data-wa-plus aria-label="One more traveller">+</button>
+            <span class="seats" data-wa-seats></span>
+          </div>
+
+          <div class="wa-sum">
+            <div><span>Trip total</span><b data-wa-total>PKR 150,000</b></div>
+            <div class="adv"><span>Advance today (50%)</span><b data-wa-adv>PKR 75,000</b></div>
+          </div>
+
+          <div class="refund" aria-label="Refund on your advance">
+            <p>If plans change, you get back</p>
+            <div class="tiers" data-wa-tiers></div>
+          </div>
+
+          <button class="btn btn-primary wide" type="submit">Request booking</button>
+        </form>
+
+        <div class="wa-done" data-wa-done hidden>
+          <div class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+          <h3>Seats requested.</h3>
+          <p data-wa-summary></p>
+          <div class="cta-col">
+            <a class="btn btn-primary wide" data-wa-open target="_blank" rel="noopener" href="https://baydaarexperiences.com/app/">Finish in the Baydaar app</a>
+            <a class="btn btn-outline wide" data-wa-whats target="_blank" rel="noopener" href="#" hidden>Send it on WhatsApp</a>
+            <button class="linkish" type="button" data-wa-reset>Price another trip</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE APP · 3,500 m ============ -->
+<section id="app" class="app" data-alti="2800" data-place="Sost">
+  <div class="wrap app-grid">
+    <div class="app-phone-col">
+      <div class="phone" data-phone>
+        <div class="phone-screen">
+          <img class="scr is-on" data-scr="0" src="img/screen-1.jpg" alt="Baydaar app home screen">
+          <img class="scr" data-scr="1" src="img/screen-3.jpg" alt="Trip page with dates and travellers">
+          <img class="scr" data-scr="2" src="img/screen-6.jpg" alt="My Trip planning screen">
+        </div>
+        <!-- floating UI that belongs to each feature -->
+        <div class="float f-near" data-float="0">
+          <span class="radar"><i></i><i></i><i></i></span>
+          <div><small>Near you · 300 m</small><b>Eagle's Nest viewpoint</b></div>
+        </div>
+        <div class="float f-circle" data-float="1">
+          <div class="avs"><i>AR</i><i>SK</i><i>MH</i><i>+9</i></div>
+          <div><small>Hunza · 10 Oct</small><b>12 people in your trip circle</b></div>
+        </div>
+        <div class="float f-plan" data-float="2">
+          <small>Day 3 · Karimabad</small><b>Pickup 5:40 a.m. · Duikar sunrise</b>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-copy">
+      <p class="eyebrow">The Baydaar app</p>
+      <h2>The trip starts before you leave.</h2>
+      <div class="features">
+        <article class="feat is-on" data-feat="0">
+          <h3>Nearby, right now</h3>
+          <p>Open the app in Karimabad and it suggests what's worth your evening within walking distance: a viewpoint, a café, the shop your guide buys dry fruit from.</p>
+        </article>
+        <article class="feat" data-feat="1">
+          <h3>Your trip circle</h3>
+          <p>Everyone on your departure lands in one chat weeks before the coaster leaves. Strangers at pickup, a group by Chilas.</p>
+        </article>
+        <article class="feat" data-feat="2">
+          <h3>Every trip, in one place</h3>
+          <p>Itinerary, pickup times, packing list and the trips you've saved for later. Nothing to screenshot, nothing to lose in a chat.</p>
+        </article>
+      </div>
+      <div class="stores">
+        <a class="store" href="https://play.google.com/store/apps/details?id=com.baydaar.app" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00D26A" d="M3.6 1.8 13.8 12 3.6 22.2c-.4-.2-.6-.6-.6-1.1V2.9c0-.5.2-.9.6-1.1z"/><path fill="#FFC400" d="m17.2 8.6-3.4 3.4 3.4 3.4 3.9-2.2c.8-.5.8-1.7 0-2.2z"/><path fill="#FF3A44" d="M13.8 12 3.6 22.2c.3.2.8.2 1.2 0l12.4-6.8z"/><path fill="#00A9FF" d="M17.2 8.6 4.8 1.8c-.4-.2-.9-.2-1.2 0L13.8 12z"/></svg>
+          <span><small>Get it on</small><b>Google Play</b></span>
+        </a>
+        <a class="store" href="https://baydaarexperiences.com/app/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+          <span><small>No download</small><b>Open web app</b></span>
+        </a>
+        <span class="store soon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.7-1-2.7-4.1zM13.9 5c.7-.9 1.2-2 1-3.2-1 .1-2.2.7-3 1.5-.6.7-1.2 1.9-1 3.1 1.1.1 2.3-.6 3-1.4z"/></svg>
+          <span><small>Coming soon</small><b>App Store</b></span>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHOP · 4,100 m ============ -->
+<section id="shop" class="shop" data-alti="3900" data-place="Khunjerab N.P.">
+  <canvas class="dust" data-dust aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow on-dark">Baydaar Shop</p>
+      <h2>Carried down from the valleys.</h2>
+      <p class="lede on-dark">Shilajit, honey and cold-pressed oils bought directly from farmers in the northern valleys and lab tested for purity. You pay in cash when it reaches your door.</p>
+    </div>
+    <div class="products">
+      <a class="prod p-shilajit" href="https://baydaarexperiences.com/app/product/gilgit-shilajit" target="_blank" rel="noopener" data-tilt>
+        <div class="prod-media">
+          <img src="img/shilajit.jpg" alt="Pure Gilgit Shilajit" loading="lazy">
+          <svg class="ring" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="rp1" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text><textPath href="#rp1">PURE GILGIT SHILAJIT · ROCK RESIN · GILGIT-BALTISTAN · </textPath></text></svg>
+          <span class="sheen" aria-hidden="true"></span>
+        </div>
+        <div class="prod-body"><h3>Pure Gilgit Shilajit</h3><p>Resin from the high rock faces of Gilgit-Baltistan.</p><p class="from">20g · 50g · 100g <b>from PKR 3,500</b></p></div>
+      </a>
+      <a class="prod p-honey" href="https://baydaarexperiences.com/app/product/wild-sidr-honey" target="_blank" rel="noopener" data-tilt>
+        <div class="prod-media">
+          <img src="img/honey.jpg" alt="Wild Sidr honey" loading="lazy">
+          <svg class="drip" viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H300 V18 C280,18 276,40 270,62 C266,76 256,76 252,62 C246,40 240,22 222,22 C200,22 196,34 190,48 C186,58 178,58 174,48 C168,32 160,20 140,20 C118,20 112,50 106,86 C102,104 90,104 86,86 C80,50 72,20 50,20 C30,20 26,32 20,42 C16,50 8,50 4,42 C2,36 0,30 0,26 Z"/></svg>
+          <span class="drop" aria-hidden="true"></span>
+        </div>
+        <div class="prod-body"><h3>Wild Sidr Honey</h3><p>Raw and unprocessed, from wild Sidr blossoms.</p><p class="from">250g · 500g · 1kg <b>from PKR 2,500</b></p></div>
+      </a>
+      <a class="prod p-oil" href="https://baydaarexperiences.com/app/product/hunza-almond-oil" target="_blank" rel="noopener" data-tilt>
+        <div class="prod-media">
+          <img src="img/almond.jpg" alt="Hunza almond oil" loading="lazy">
+          <span class="sheen" aria-hidden="true"></span>
+        </div>
+        <div class="prod-body"><h3>Hunza Almond Oil</h3><p>Cold-pressed from Hunza almonds.</p><p class="from">100ml · 250ml · 500ml <b>from PKR 900</b></p></div>
+      </a>
+    </div>
+    <ul class="promises">
+      <li><b>Cash on delivery</b> anywhere in Pakistan</li>
+      <li><b>Free delivery</b> over PKR 5,000</li>
+      <li><b>7-day returns</b> if it isn't right</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ CALL · 4,693 m ============ -->
+<section id="call" class="call" data-alti="4693" data-place="Khunjerab Pass">
+  <canvas class="stars" data-stars aria-hidden="true"></canvas>
+  <div class="wrap call-grid">
+    <div class="call-copy">
+      <p class="eyebrow on-dark">4,693 m · Khunjerab Pass</p>
+      <h2>Not sure which trip? Talk to someone who has driven that road.</h2>
+      <p class="lede on-dark">Fifteen minutes with a Baydaar planner. Tell us who's coming and when, and we'll tell you honestly which trip fits, what it costs and what the weather will do.</p>
+      <ul class="trust">
+        <li><b>98%</b> of 66 reviewers recommend us · <a href="https://www.facebook.com/baydaarexperiences/reviews" target="_blank" rel="noopener">read them</a></li>
+        <li><b>50%</b> advance only, with the refund shown before you pay</li>
+        <li><b>Since 2017</b> · Islamabad<span data-licence hidden></span></li>
+      </ul>
+    </div>
+
+    <form class="meet" data-meet>
+      <div class="meet-step" data-meet-form>
+        <span class="wa-label">Pick a day</span>
+        <div class="days" data-days role="radiogroup" aria-label="Day"></div>
+        <span class="wa-label">Pick a time (PKT)</span>
+        <div class="chips" data-slots role="radiogroup" aria-label="Time"></div>
+        <div class="two">
+          <div><label class="wa-label" for="m-name">Your name</label><input id="m-name" name="name" autocomplete="name" required placeholder="Ayesha Khan"></div>
+          <div><label class="wa-label" for="m-phone">WhatsApp number</label><input id="m-phone" name="phone" type="tel" autocomplete="tel" required placeholder="03xx xxxxxxx" pattern="[0-9+ ]{10,15}"></div>
+        </div>
+        <label class="wa-label" for="m-want">Thinking about</label>
+        <select id="m-want" name="want">
+          <option>Not sure yet, help me choose</option>
+          <option>A group trip on the board</option>
+          <option>A custom trip for my family</option>
+          <option>A honeymoon</option>
+          <option>A corporate retreat</option>
+        </select>
+        <button class="btn btn-primary wide" type="submit">Book my 15-minute call</button>
+        <p class="fine on-dark">Free. No card. We call on WhatsApp at the time you choose.</p>
+      </div>
+      <div class="meet-done" data-meet-done hidden>
+        <div class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+        <h3>You're on the calendar.</h3>
+        <p data-meet-summary></p>
+        <a class="btn btn-primary wide" data-meet-whats target="_blank" rel="noopener" href="#" hidden>Confirm on WhatsApp</a>
+        <p class="fine on-dark">Or email <span class="sel">baydaartravels@gmail.com</span></p>
+        <button class="linkish on-dark" type="button" data-meet-reset>Change the time</button>
+      </div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <a class="brand" href="#top"><img src="img/icon.png" alt="" width="28" height="28"><span>Baydaar</span></a>
+    <nav aria-label="Footer">
+      <a href="https://baydaarexperiences.com/blog/" target="_blank" rel="noopener">Travel guides</a>
+      <a href="https://www.instagram.com/baydaarexperiences/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/baydaarexperiences/" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.tiktok.com/@baydaarexperiences" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://baydaarexperiences.com/terms/" target="_blank" rel="noopener">Terms</a>
+      <a href="https://baydaarexperiences.com/privacy/" target="_blank" rel="noopener">Privacy</a>
+    </nav>
+    <p class="copy">© 2026 Baydaar Experiences · Islamabad · <span class="sel">baydaartravels@gmail.com</span></p>
+    <p class="credits">Photos: Hunza, Attabad, Katpana, Deosai and Rakaposhi are public domain (Wikimedia Commons). K2 panorama by simonsimages, Passu by Raki_Man, Eagle's Nest by Yasin Chaudhry, Cappadocia by Arian Zwegers, all CC BY.</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
