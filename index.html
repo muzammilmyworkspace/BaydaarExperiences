@@ -106,17 +106,18 @@
 
 <!-- ============ PLACES · 2,438 m ============ -->
 <section id="places" class="places" data-alti="1500" data-place="Gilgit">
-  <div class="places-pin" data-places-pin>
-    <div class="places-row" data-places-row>
+  <div class="wrap places-head">
     <div class="places-intro">
       <p class="eyebrow">Where the road goes</p>
-      <h2>Nine places that <br>change people.</h2>
-      <p class="lede">Scroll sideways through the north, then over the border.</p>
+      <h2>Nine places that change people.</h2>
     </div>
-    <div class="places-track" data-places-track>
-      <!-- filled by main.js -->
+    <div class="places-nav">
+      <button type="button" data-places-prev aria-label="Previous places"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+      <button type="button" data-places-next aria-label="More places"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </div>
-    </div>
+  </div>
+  <div class="places-track" data-places-track role="list">
+    <!-- filled by main.js -->
   </div>
 </section>
 

@@ -22,15 +22,15 @@ const CONFIG = {
   SEATS_PER_DEPARTURE: 14,
 
   PLACES: [
-    { n:'Hunza', a:'2,438 m · Karimabad', img:'img/eagle.jpg', k:'Pakistan', s:'Apricot orchards under Rakaposhi and Ultar. Come in late October, when the poplars turn gold.' },
-    { n:'Attabad Lake', a:'2,560 m · Gojal', img:'img/attabad.jpg', k:'Pakistan', s:'A landslide made it in 2010. The water really is that colour.' },
-    { n:'Rakaposhi', a:'7,788 m · Nagar', img:'img/rakaposhi.jpg', k:'Pakistan', s:'A wall of ice that rises almost straight out of green wheat fields.' },
-    { n:'Passu', a:'7,611 m · Shispare', img:'img/passu.jpg', k:'Pakistan', s:'A glacier you can walk to from the Karakoram Highway.' },
-    { n:'Katpana Desert', a:'2,226 m · Skardu', img:'img/katpana.jpg', k:'Pakistan', s:'Sand dunes with snow peaks behind them. A cold desert, and a strange one.' },
-    { n:'Deosai Plains', a:'4,114 m · Baltistan', img:'img/deosai.jpg', k:'Pakistan', s:'One of the highest plateaus on earth. Wildflowers, brown bears and no phone signal.' },
-    { n:'Cappadocia', a:'1,000 m · Turkey', img:'img/cappadocia.jpg', k:'Beyond', s:'Sunrise from a balloon basket, with a hundred more around you.' },
-    { n:'Istanbul', a:'39 m · Turkey', img:'img/turkey.jpg', k:'Beyond', s:'Two continents and one ferry ride. The Blue Mosque at golden hour.' },
-    { n:'Baku', a:'−28 m · Azerbaijan', img:'img/baku.jpg', k:'Beyond', s:'The Flame Towers and the Caspian. The only stop on our map below sea level.' },
+    { n:'Hunza', trip:'hunza-valley-adventure', a:'2,438 m · Karimabad', img:'img/eagle.jpg', k:'Pakistan', s:'Apricot orchards under Rakaposhi and Ultar. Come in late October, when the poplars turn gold.' },
+    { n:'Attabad Lake', trip:'hunza-valley-adventure', a:'2,560 m · Gojal', img:'img/attabad.jpg', k:'Pakistan', s:'A landslide made it in 2010. The water really is that colour.' },
+    { n:'Rakaposhi', trip:'hunza-valley-adventure', a:'7,788 m · Nagar', img:'img/rakaposhi.jpg', k:'Pakistan', s:'A wall of ice that rises almost straight out of green wheat fields.' },
+    { n:'Passu', trip:'hunza-valley-adventure', a:'7,611 m · Shispare', img:'img/passu.jpg', k:'Pakistan', s:'A glacier you can walk to from the Karakoram Highway.' },
+    { n:'Katpana Desert', trip:'skardu-expedition', a:'2,226 m · Skardu', img:'img/katpana.jpg', k:'Pakistan', s:'Sand dunes with snow peaks behind them. A cold desert, and a strange one.' },
+    { n:'Deosai Plains', trip:'skardu-expedition', a:'4,114 m · Baltistan', img:'img/deosai.jpg', k:'Pakistan', s:'One of the highest plateaus on earth. Wildflowers, brown bears and no phone signal.' },
+    { n:'Cappadocia', trip:'turkey-cultural-journey', a:'1,000 m · Turkey', img:'img/cappadocia.jpg', k:'Beyond', s:'Sunrise from a balloon basket, with a hundred more around you.' },
+    { n:'Istanbul', trip:'turkey-cultural-journey', a:'39 m · Turkey', img:'img/turkey.jpg', k:'Beyond', s:'Two continents and one ferry ride. The Blue Mosque at golden hour.' },
+    { n:'Baku', trip:'azerbaijan-baku-escape', a:'−28 m · Azerbaijan', img:'img/baku.jpg', k:'Beyond', s:'The Flame Towers and the Caspian. The only stop on our map below sea level.' },
   ],
 };
 
@@ -294,30 +294,32 @@ onScroll();
   });
 })();
 
-/* ---------------- places: horizontal journey ---------------- */
+/* ---------------- places: a row the visitor scrolls only if they want to ---------------- */
 (function places() {
   const track = $('[data-places-track]'); if (!track) return;
   track.innerHTML = CONFIG.PLACES.map(p => `
-    <article class="place">
+    <a class="place" role="listitem" href="#book" data-trip="${p.trip}">
       <img src="${p.img}" alt="${p.n}" loading="lazy">
       <span class="tag">${p.k}</span>
-      <div class="body"><span class="alt">${p.a}</span><h3>${p.n}</h3><p>${p.s}</p></div>
-    </article>`).join('');
-  if (!hasGsap || reduce) return;
-  const mm = gsap.matchMedia();
-  mm.add('(min-width: 981px)', () => {
-    const pin = $('[data-places-pin]'), row = $('[data-places-row]');
-    const dist = () => Math.max(0, row.scrollWidth - innerWidth);
-    const tween = gsap.to(row, { x: () => -dist(), ease: 'none',
-      scrollTrigger: { trigger: pin, start: 'top top', end: () => '+=' + dist(), pin: true, scrub: .6, invalidateOnRefresh: true, anticipatePin: 1 } });
-    $$('.place img', track).forEach(img => {
-      gsap.fromTo(img, { xPercent: 8 }, { xPercent: -8, ease: 'none',
-        scrollTrigger: { trigger: img.parentElement, containerAnimation: tween, start: 'left right', end: 'right left', scrub: true } });
-    });
+      <div class="body"><span class="alt">${p.a}</span><h3>${p.n}</h3><p>${p.s}</p>
+        <span class="go">See dates <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+    </a>`).join('');
+  // a card opens its trip in the booking widget
+  track.addEventListener('click', e => {
+    const a = e.target.closest('.place'); if (!a) return;
+    if (lenis) { e.preventDefault(); lenis.scrollTo('#book', { offset: -10 }); }
+    const t = TRIPS.find(x => x.id === a.dataset.trip);
+    if (t) window.dispatchEvent(new CustomEvent('baydaar:pick', { detail: { id: t.id, date: +t.deps[0].date } }));
   });
-  mm.add('(max-width: 980px)', () => {
-    gsap.from($$('.place', track), { y: 40, opacity: 0, stagger: .08, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: track, start: 'top 85%' } });
-  });
+  const step = () => (track.querySelector('.place')?.offsetWidth || 300) + 18;
+  const prev = $('[data-places-prev]'), next = $('[data-places-next]');
+  prev.addEventListener('click', () => track.scrollBy({ left: -step() * 2, behavior: reduce ? 'auto' : 'smooth' }));
+  next.addEventListener('click', () => track.scrollBy({ left: step() * 2, behavior: reduce ? 'auto' : 'smooth' }));
+  const ends = () => {
+    prev.disabled = track.scrollLeft < 8;
+    next.disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 8;
+  };
+  track.addEventListener('scroll', ends, { passive: true }); addEventListener('resize', ends); ends();
 })();
 
 /* ---------------- booking web app ---------------- */
@@ -602,7 +604,7 @@ onScroll();
 
 /* ---------------- section headings rise in ---------------- */
 if (hasGsap && !reduce) {
-  $$('.sec-head, .book-copy > h2, .app-copy > h2, .call-copy > h2, .places-intro').forEach(h => {
+  $$('.sec-head, .book-copy > h2, .app-copy > h2, .call-copy > h2, .places-head').forEach(h => {
     gsap.from(h, { y: 50, opacity: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 85%' } });
   });
   addEventListener('load', () => ScrollTrigger.refresh());
