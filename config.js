@@ -2,7 +2,7 @@
 window.BAYDAAR = {
   // Business WhatsApp in international format, digits only (e.g. '923001234567').
   // Empty = WhatsApp buttons fall back to email / the call form.
-  WHATSAPP: '',
+  WHATSAPP: '923483303591',
   INSTAGRAM: 'https://www.instagram.com/baydaarexperiences/',
   EMAIL: 'baydaartravels@gmail.com',
   APP_URL: 'https://baydaarexperiences.com/app/',
