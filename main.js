@@ -294,32 +294,41 @@ onScroll();
   });
 })();
 
-/* ---------------- places: a row the visitor scrolls only if they want to ---------------- */
+/* ---------------- places: elevation list beside one large photo ---------------- */
 (function places() {
-  const track = $('[data-places-track]'); if (!track) return;
-  track.innerHTML = CONFIG.PLACES.map(p => `
-    <a class="place" role="listitem" href="#book" data-trip="${p.trip}">
-      <img src="${p.img}" alt="${p.n}" loading="lazy">
-      <span class="tag">${p.k}</span>
-      <div class="body"><span class="alt">${p.a}</span><h3>${p.n}</h3><p>${p.s}</p>
-        <span class="go">See dates <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-    </a>`).join('');
-  // a card opens its trip in the booking widget
-  track.addEventListener('click', e => {
-    const a = e.target.closest('.place'); if (!a) return;
+  const list = $('[data-pl-list]'), frame = $('[data-pl-frame]'); if (!list) return;
+  const tripOf = p => TRIPS.find(x => x.id === p.trip);
+  list.innerHTML = CONFIG.PLACES.map((p, i) => {
+    const [alt, region] = p.a.split('·').map(s => s.trim());
+    return `<li><button type="button" class="pl-row" data-i="${i}" aria-pressed="${i === 0}">
+      <span class="pl-m">${alt}</span><span class="pl-n">${p.n}</span><span class="pl-r">${region}</span><span class="pl-k">${p.k}</span></button></li>`;
+  }).join('');
+  // every photo is stacked once; switching only fades, so nothing jumps or reloads
+  frame.innerHTML = CONFIG.PLACES.map((p, i) => `<img src="${p.img}" alt="${p.n}" class="${i === 0 ? 'on' : ''}" ${i > 2 ? 'loading="lazy"' : ''}>`).join('');
+  let cur = -1;
+  function show(i) {
+    if (i === cur) return; cur = i;
+    const p = CONFIG.PLACES[i], t = tripOf(p);
+    $$('.pl-row', list).forEach((r, k) => r.setAttribute('aria-pressed', String(k === i)));
+    $$('img', frame).forEach((im, k) => im.classList.toggle('on', k === i));
+    $('[data-pl-alt]').textContent = p.a;
+    $('[data-pl-name]').textContent = p.n;
+    $('[data-pl-line]').textContent = p.s;
+    $('[data-pl-trip-name]').textContent = t ? `${t.t} · ${t.d} days` : '';
+    $('[data-pl-trip-price]').textContent = t ? `from ${pkr(t.p)}` : '';
+    $('[data-pl-go]').dataset.trip = p.trip;
+    const card = $('.pl-card'); card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap');
+  }
+  list.addEventListener('click', e => { const r = e.target.closest('.pl-row'); if (r) show(+r.dataset.i); });
+  list.addEventListener('focusin', e => { const r = e.target.closest('.pl-row'); if (r) show(+r.dataset.i); });
+  if (matchMedia('(hover: hover)').matches) list.addEventListener('pointerover', e => { const r = e.target.closest('.pl-row'); if (r) show(+r.dataset.i); });
+  // See dates opens this place's trip in the booking widget
+  $('[data-pl-go]').addEventListener('click', e => {
     if (lenis) { e.preventDefault(); lenis.scrollTo('#book', { offset: -10 }); }
-    const t = TRIPS.find(x => x.id === a.dataset.trip);
+    const t = TRIPS.find(x => x.id === e.currentTarget.dataset.trip);
     if (t) window.dispatchEvent(new CustomEvent('baydaar:pick', { detail: { id: t.id, date: +t.deps[0].date } }));
   });
-  const step = () => (track.querySelector('.place')?.offsetWidth || 300) + 18;
-  const prev = $('[data-places-prev]'), next = $('[data-places-next]');
-  prev.addEventListener('click', () => track.scrollBy({ left: -step() * 2, behavior: reduce ? 'auto' : 'smooth' }));
-  next.addEventListener('click', () => track.scrollBy({ left: step() * 2, behavior: reduce ? 'auto' : 'smooth' }));
-  const ends = () => {
-    prev.disabled = track.scrollLeft < 8;
-    next.disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 8;
-  };
-  track.addEventListener('scroll', ends, { passive: true }); addEventListener('resize', ends); ends();
+  show(0);
 })();
 
 /* ---------------- booking web app ---------------- */

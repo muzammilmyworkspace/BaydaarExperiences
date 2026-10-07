@@ -111,13 +111,22 @@
       <p class="eyebrow">Where the road goes</p>
       <h2>Nine places that change people.</h2>
     </div>
-    <div class="places-nav">
-      <button type="button" data-places-prev aria-label="Previous places"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
-      <button type="button" data-places-next aria-label="More places"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-    </div>
   </div>
-  <div class="places-track" data-places-track role="list">
-    <!-- filled by main.js -->
+  <div class="wrap pl">
+    <ol class="pl-list" data-pl-list></ol>
+    <div class="pl-view">
+      <div class="pl-frame" data-pl-frame></div>
+      <div class="pl-card">
+        <p class="pl-alt" data-pl-alt></p>
+        <h3 data-pl-name></h3>
+        <p class="pl-line" data-pl-line></p>
+        <div class="pl-trip">
+          <div><small data-pl-trip-name></small><b data-pl-trip-price></b></div>
+          <a class="btn btn-primary" href="#book" data-pl-go>See dates
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
